@@ -26,6 +26,7 @@ export const VideoCard: NextPage<IProps> = ({post}) => {
             setplaying(true);
         }
     }
+    
 
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
@@ -50,6 +51,7 @@ export const VideoCard: NextPage<IProps> = ({post}) => {
                                 <GoVerified
                                 className='text-blue-400 text-md'/>
                             </p>
+                            <p className='capitalize font-medium text-xs text-gray-500 hidden md:block'>{post.postedBy.userName}</p>
                         </div>
                     </Link>
                 </div>
@@ -58,30 +60,30 @@ export const VideoCard: NextPage<IProps> = ({post}) => {
         <div className='lg:ml-20 flex gap-4 relative'>
             <div 
             onMouseEnter={() => setisHover(true)}
-            onMouseLeave={()=>setisHover(false)}
+            onMouseLeave={() => setisHover(false)}
             className='rounded-3xl'>
-                <Link href="/">
-                    <video src={post.video.asset.url} loop className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100" ref={videoRef} />
+                <Link href={`/detail/${post._id}`}>
+                    <video src={post.video.asset.url} loop className="lg:w-[700px] h-[300px] md:h-[400px] lg:h-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100" ref={videoRef} />
                     
                 </Link>
                 {
                     isHover && (
-                        <div className='absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3'>
+                        <div>
                             {playing ? (
-                                <button className='text-black text-2xl lg:text-4xl' onClick={onVideoPres}>
+                                <button className='text-black text-2xl lg:text-4xl absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3' onClick={onVideoPres}>
                                 <BsFillPauseFill/>
                                 </button>
                             ):(
-                                <button className='text-black text-2xl lg:text-4xl' onClick={onVideoPres}>
+                                <button className='absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3 text-black text-2xl lg:text-4xl' onClick={onVideoPres}>
                                     <BsFillPlayFill/>
                                 </button>
                             )}
                             {isVideoMuted ? (
-                                <button className='text-black text-2xl lg:text-4xl' onClick={()=> setisVideoMuted(false)}>
+                                <button className='absolute bottom-6 cursor-pointer right-8 md:right-14 lg:right-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3 text-black text-2xl lg:text-4xl' onClick={()=> setisVideoMuted(false)}>
                                 <HiVolumeOff/>
                                 </button>
                             ):(
-                                <button className='text-black text-2xl lg:text-4xl' onClick={()=>setisVideoMuted(true)}>
+                                <button className='absolute bottom-6 cursor-pointer right-8 md:right-14 lg:right-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] p-3 text-black text-2xl lg:text-4xl' onClick={()=>setisVideoMuted(true)}>
                                     <HiVolumeUp/>
                                 </button>
                             )}
